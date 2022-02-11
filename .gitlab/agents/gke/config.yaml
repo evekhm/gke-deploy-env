@@ -1,0 +1,9 @@
+# gitops:
+#   manifest_projects:
+#   - id: "id_here"
+
+# Authorize other projects in GitLab to use this Agent.
+# https://docs.gitlab.com/ee/user/clusters/agent/repository.html#authorize-projects-to-use-an-agent
+ci_access:
+  groups:
+    - id: "gcp-solutions/hcls"
