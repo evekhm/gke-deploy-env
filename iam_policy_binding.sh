@@ -14,6 +14,7 @@ do
     esac
 done
 
+echo "Using PROJECT_ID=$PROJECT_ID, SERVICE_ACCOUNT_NAME=$SERVICE_ACCOUNT_NAME"
 # REF
 # https://cloud.google.com/iam/docs/understanding-roles#basic
  
@@ -21,6 +22,9 @@ done
 # DESCRIPTION: Provides permissions to administer IAM policies on projects.
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/resourcemanager.projectIamAdmin"
 
+#EK - prepare cluster script
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/iam.serviceAccountCreator"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/iam.workloadIdentityUser"
 
 # EK needed to upload Cloud Storage Bucket for CDS Library
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/clouddeploy.jobRunner"
