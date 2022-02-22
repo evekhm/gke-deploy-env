@@ -6,4 +6,5 @@
 # https://docs.gitlab.com/ee/user/clusters/agent/repository.html#authorize-projects-to-use-an-agent
 ci_access:
   groups:
-    - id: "gcp-solutions/hcls/*"
+    - id: "gcp-solutions/hcls"
+    - id: "gcp-solutions/hcls/claims-modernization/gitlab-test-examples"
