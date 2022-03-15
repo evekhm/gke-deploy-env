@@ -4,7 +4,6 @@
 set -e # Exit if error is detected during pipeline execution
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$DIR"/vars
 
 while getopts a:p: flag
 do

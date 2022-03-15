@@ -14,7 +14,8 @@ do
     esac
 done
 
-echo "Using PROJECT_ID=$PROJECT_ID, SERVICE_ACCOUNT_NAME=$SERVICE_ACCOUNT_NAME"
+echo "Adding required Role Bindings to the Service Account=$SERVICE_ACCOUNT_NAME for project PROJECT_ID=$PROJECT_ID ..."
+
 # REF
 # https://cloud.google.com/iam/docs/understanding-roles#basic
  

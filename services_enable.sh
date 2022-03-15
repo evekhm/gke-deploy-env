@@ -15,6 +15,7 @@ do
     esac
 done
 
+echo "Enabling APIs for $PROJECT_ID ..."
 declare -a ServiceArray=(\
         "apigateway.googleapis.com" \
         "storage.googleapis.com" \

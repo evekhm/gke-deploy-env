@@ -2,6 +2,7 @@
 
 # To Be Provisioned by DTP
 set -e # Exit if error is detected during pipeline execution
+source "$DIR"/vars
 
 # ARGPARSE
 while getopts p: flag
