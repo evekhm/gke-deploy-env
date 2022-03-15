@@ -28,11 +28,7 @@ In case of planning on contributing back, the scope needs also to include `write
 
 ### Service Account
 - [Create a service account & download key JSON](https://cloud.google.com/docs/authentication/getting-started#creating_a_service_account). Moving forward, this will be referred to as `GCP_SERVICE_ACCOUNT`
-Moving forward, this will be referred to as `SERVICE_ACCOUNT` (Example: gitlab-runner).
-
-### Create GKE Cluster
-- Create Autopilot GKE Cluster [CLUSTER_NAME]
-- Connect to the [CLUSTER_NAME] using the CLI
+Moving forward, this will be referred to as `SERVICE_ACCOUNT`.
 
 
 ### Setting Up Environment
@@ -56,17 +52,15 @@ Moving forward, this will be referred to as `SERVICE_ACCOUNT` (Example: gitlab-r
       cd gke-deploy-env
     ```
 
-- Enable required APIs: 
+- Execute Provisioning Step (to be integrated with DTP). This will:
+  - Enable required APIs
+  - Add required Role Bindings to the Service Account
+  - Create Cluster (as specified in `vars` file)
+  
   ```shell
-  bash ./services_enable.sh -p $PROJECT_ID
+  bash ./provision.sh -p $PROJECT_ID -a $SERVICE_ACCOUNT
   ```
 
-- Add required Role Bindings to the Service Account:
-  ```shell
-  bash ./iam_policy_binding.sh -p $PROJECT_ID -a $SERVICE_ACCOUNT
-  ```
-  
-- Setup network
 ## GitLab Agent
 Install GitLab Agent in the cluster created above. See Instructions [here](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html)
 - Inside this repository, [create the Agent's configuration file](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html#create-the-agents-configuration-file)

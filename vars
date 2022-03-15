@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+ZONE='us-central1-c'
+REGION='us-central1'
+NETWORK='drls'
+CLUSTER='prior-auth'
+
+
