@@ -2,11 +2,11 @@
 ## Table of Contents
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [GCP Provisioning and GitLab Agent Installation](#gcp_agent)
-  * [GCP Project](#gcp_project)
-  * [Service Account](#service_account)
-  * [Setting Up Environment](#setting_up_environment)
-  * [GitLab Agent](#gitlab_agent)
+- [GCP Provisioning and GitLab Agent Installation](#gcp-agent)
+  * [GCP Project](#gcp-project)
+  * [Service Account](#service-account)
+  * [Setting Up Environment](#setting-up-environment)
+  * [GitLab Agent](#gitlab-agent)
 - [GitLab CI/CD](#gitlab_ci_cd)
 
 ## Overview                 
@@ -77,7 +77,7 @@ Install GitLab Agent in the cluster created above. See Instructions [here](https
   - Open a CLI and connect to the cluster you created in the step above. 
   - Run the docker `docker run` command.
 
-## GitLab CI/CD
+## GitLab CI/CD <a name="gitlab_ci_cd"></a>
 - Following variables created here need to be carried over:
   - AGENT_NAME: name of the agent just created and deployed. 
   - SERVICE_ACCOUNT_FILE: Downloaded Service Account JSON key
