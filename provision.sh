@@ -5,6 +5,7 @@ set -e # Exit if error is detected during pipeline execution
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+export USE_GKE_GCLOUD_AUTH_PLUGIN=False
 while getopts a:p: flag
 do
     case "${flag}" in

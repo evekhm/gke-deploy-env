@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR"/vars
+export USE_GKE_GCLOUD_AUTH_PLUGIN=False
+
+if [ -z "$PROJECT_ID" ]; then
+  PROJECT_ID=$(gcloud config get-value project)
+fi
+gcloud container clusters get-credentials "$CLUSTER" --region="$REGION" --project "$PROJECT_ID"
+
