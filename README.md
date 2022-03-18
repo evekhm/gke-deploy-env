@@ -52,6 +52,14 @@ Moving forward,  name of the created service account will be referred to as `SER
   gcloud config set project $PROJECT_ID
   ```
 
+
+- For the `Argolis` environment ONLY, following known Org Constraints need to be disabled using Cloud Shell before deploying the cluster:
+
+  ```sh
+     gcloud services enable orgpolicy.googleapis.com
+     gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
+  ```
+
 - Using Cloud Shell (or gcloud) to clone this repository using your Gitlab Token:
     ```shell
       git clone https://oauth2:$TOKEN@gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env.git gke-deploy-env
@@ -66,7 +74,7 @@ Moving forward,  name of the created service account will be referred to as `SER
   bash gke-deploy-env/provision.sh -p $PROJECT_ID -a $SERVICE_ACCOUNT
   ```
 
-### GitLab Agent
+### GitLab Agent <a name="gitlab-agent"></a>
 Install GitLab Agent in the cluster created above. See Instructions [here](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html)
 - Inside this [repository](https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env/.gitlab), [create the Agent's configuration file](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html#create-the-agents-configuration-file)
   ```shell
