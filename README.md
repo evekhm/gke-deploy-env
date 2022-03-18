@@ -58,6 +58,7 @@ Moving forward,  name of the created service account will be referred to as `SER
   ```sh
      gcloud services enable orgpolicy.googleapis.com
      gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
+     gcloud org-policies reset constraints/iam.disableServiceAccountKeyCreation --project $PROJECT_ID
   ```
 
 - Using Cloud Shell (or gcloud) to clone this repository using your Gitlab Token:
@@ -65,14 +66,29 @@ Moving forward,  name of the created service account will be referred to as `SER
       git clone https://oauth2:$TOKEN@gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env.git gke-deploy-env
     ```
 
-- Execute Provisioning Step (to be integrated with DTP). This will:
-  - Enable required APIs
-  - Add required Role Bindings to the Service Account
-  - Create Cluster (using Cluster name, network, zone and region as specified in [vars](vars) file).
-  
-  ```shell
-  bash gke-deploy-env/provision.sh -p $PROJECT_ID -a $SERVICE_ACCOUNT
-  ```
+- Execute Provisioning Step (to be integrated with DTP).  
+  * Optionally: Set ZONE REGION CLUSTER_NAME the defaults
+    > By assigning any of the below env variables, you could overwrite the defined defaults (see below):
+    ```shell
+    export CLUSTER=<cluster-name>
+    export REGION=<your-region>
+    export ZONE=<your-zone>
+    ```
+
+    defaults (See `vars` file):
+    ```shell
+    ZONE=${ZONE:-'us-central1-c'}
+    REGION=${REGION:-'us-central1'}
+    CLUSTER=${CLUSTER:-'prior-auth'}
+    ```
+  * Run provisioning:
+    ```shell
+    gke-deploy-env/provision.sh -p $PROJECT_ID -a $SERVICE_ACCOUNT
+    ```
+  * This will:
+      - Enable required APIs
+      - Add required Role Bindings to the Service Account
+      - Create Cluster (using Cluster name, network, zone and region as specified in [vars](vars) file).
 
 ### GitLab Agent <a name="gitlab-agent"></a>
 Install GitLab Agent in the cluster created above. See Instructions [here](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html)

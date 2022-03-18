@@ -29,6 +29,8 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SER
 
 # EK needed to upload Cloud Storage Bucket for CDS Library
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/clouddeploy.jobRunner"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/storage.admin"
+#Creating GCS bucket for pipeline: [gs://gitlab-cicd-344423-cql-demo].. not have storage.buckets.create access to the Google Cloud project.
 
 #EK: needed to list existing/create a new namespace when deploying to the GKE cluster
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/container.developer"
