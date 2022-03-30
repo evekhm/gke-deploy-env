@@ -35,9 +35,9 @@ for s in "${ServiceArray[@]}"; do
     gcloud services enable --project "${PROJECT_ID}" "$s"
 done
 
-## For Argolis
-gcloud services enable orgpolicy.googleapis.com
-gcloud org-policies reset constraints/compute.vmExternalIpAccess --project "${PROJECT_ID}"
+### For Argolis
+#gcloud services enable orgpolicy.googleapis.com
+#gcloud org-policies reset constraints/compute.vmExternalIpAccess --project "${PROJECT_ID}"
 
 ##################################
 # Now let's echo out our services for this account.

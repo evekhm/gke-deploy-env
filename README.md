@@ -12,7 +12,7 @@
 ## Overview                 
 
 These are manual steps for GCP Provisioning which are Pre-Requisite for GitLab CI/CD flow.
-To be integrated with DTP ...   
+To be integrated with DPT ...   
 
 These instructions guide you through:
 - Creating GCP Project
@@ -41,10 +41,14 @@ Moving forward,  name of the created service account will be referred to as `SER
 
 
 ### Setting Up Environment
+- 
+
+
 - Set Environment Variables and activate Project config:
   ```shell
   export PROJECT_ID=<your_project_id>
   export TOKEN=<your_gitlab_token>
+  export USERNAME=<your_gitlab_username>
   export SERVICE_ACCOUNT=<you_service_account_name>
   ```
   
@@ -52,6 +56,10 @@ Moving forward,  name of the created service account will be referred to as `SER
   gcloud config set project $PROJECT_ID
   ```
 
+To get access to GitLab sources following command needs to be run:
+```shell
+docker login -u $USERNAME -p $TOKEN registry.gitlab.com
+```
 
 - For the `Argolis` environment ONLY, following known Org Constraints need to be disabled using Cloud Shell before deploying the cluster:
 
@@ -91,8 +99,8 @@ Moving forward,  name of the created service account will be referred to as `SER
       - Create Cluster (using Cluster name, network, zone and region as specified in [vars](vars) file).
 
 ### GitLab Agent <a name="gitlab-agent"></a>
-Install GitLab Agent in the cluster created above. See Instructions [here](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html)
-- Inside this [repository](https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env/.gitlab), [create the Agent's configuration file](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html#create-the-agents-configuration-file)
+Install GitLab Agent in the cluster created above. See Instructions [here](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html#create-the-agents-configuration-file)
+- Inside this [repository folder](https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env/-/tree/main/.gitlab/agents), create the Agent's configuration file:
   ```shell
   .gitlab/agents/<agent-name>/config.yaml
   ```
