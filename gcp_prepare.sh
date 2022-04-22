@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -e # Exit if error is detected during pipeline execution
 # Required Settings:
-# PROJECT_ID -p
+# -p PROJECT_ID
 
+#Optional
 # Possible settings:
 #    export CLUSTER=<cluster-name>
 #    export REGION=<your-region>
@@ -11,21 +12,26 @@ set -e # Exit if error is detected during pipeline execution
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=False
-while getopts p:c:a flag
+while getopts s:p:c:a flag
 do
     case "${flag}" in
         c) CLUSTER=${OPTARG};;
         p) PROJECT_ID=${OPTARG};;
         a) ARGOLIS=true;;
+        s) SERVICE_ACCOUNT=${OPTARG};;
         *) echo "Wrong arguments provided" && exit
     esac
 done
 
+usage(){
+  echo " $(basename "$0")  [ -p <PROJECT_ID> -s <SERVICE_ACCOUNT_NAME> -c <CLUSTER_NAME> -a ]"
+  exit 1
+}
 # 1. check for ENV variables to be set
 if [ -z ${PROJECT_ID+x} ]; then
   echo "Missing PROJECT_ID=$PROJECT_ID"
   echo "Either set PROJECT_ID as env variable or provide it as input parameter  $(basename "$0") -p <PROJECT_ID>"
-  exit 1
+  usage
 fi
 
 ## Download sources from Gitlab
@@ -67,12 +73,12 @@ gcloud iam service-accounts keys create $KEY_FILE \
 bash "${DIR}"/iam_policy_binding.sh -p "$PROJECT_ID" -a "$SERVICE_ACCOUNT"
 bash "${DIR}"/create_cluster.sh -p "$PROJECT_ID"
 
-gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID
+#gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID
 
 #### Next Steps
 echo -e " Next Steps:
 - 1. Download $KEY_FILE and use it for DRLS-GCP CI/CD Settings.
-- 2. Install Gitlab Agent on the $CLUSTER cluster."
-#   gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID"
+- 2. Install Gitlab Agent on the $CLUSTER cluster. Connect to the cluster:
+    gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID"
 
 
