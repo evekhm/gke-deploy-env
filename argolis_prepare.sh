@@ -69,11 +69,12 @@ gcloud iam service-accounts keys create $KEY_FILE \
 bash "${DIR}"/iam_policy_binding.sh -p "$PROJECT_ID" -a "$SERVICE_ACCOUNT"
 bash "${DIR}"/create_cluster.sh -p "$PROJECT_ID"
 
+gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID
 
 #### Next Steps
 echo -e " Next Steps:
-- 1. Download $WORKDIR/$KEY_FILE and use it for DRLS-GCP CI/CD Settings.
-- 2. Connect to the Cluster to install Gitlab Agent:
-   gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID"
+- 1. Download $KEY_FILE and use it for DRLS-GCP CI/CD Settings.
+- 2. Install Gitlab Agent on the $CLUSTER cluster."
+#   gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID"
 
 
