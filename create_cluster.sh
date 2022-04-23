@@ -6,10 +6,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR"/vars
 
 # ARGPARSE
-while getopts p: flag
+while getopts p:c: flag
 do
     case "${flag}" in
         p) PROJECT_ID=${OPTARG};;
+        c) CLUSTER=${OPTARG};;
         *) echo "Wrong arguments provided" && exit
     esac
 done

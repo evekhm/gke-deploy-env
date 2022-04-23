@@ -71,9 +71,9 @@ gcloud iam service-accounts keys create $KEY_FILE \
 
 # Provision Resources
 bash "${DIR}"/iam_policy_binding.sh -p "$PROJECT_ID" -a "$SERVICE_ACCOUNT"
-bash "${DIR}"/create_cluster.sh -p "$PROJECT_ID"
+bash "${DIR}"/create_cluster.sh -p "$PROJECT_ID" -c "$CLUSTER"
 
-#gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID
+gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID
 
 #### Next Steps
 echo -e " Next Steps:
