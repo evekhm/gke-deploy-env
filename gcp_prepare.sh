@@ -77,9 +77,15 @@ gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $P
 
 #### Next Steps
 echo "Created $SERVICE_ACCOUNT service account to be used with GitLab deployment."
-echo -e " Next Steps:
+echo -e "Next Steps:
 - 1. Download $KEY_FILE and use it for DRLS-GCP CI/CD Settings.
-- 2. Install Gitlab Agent on the $CLUSTER cluster. Connect to the cluster:
-    gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID"
+
+ ls
+ cat $KEY_FILE
+
+- 2. Install Gitlab Agent on the $CLUSTER cluster.
+     You are already connected to the $CLUSTER cluster. To re-connect run:
+
+gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID"
 
 
