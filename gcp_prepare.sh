@@ -47,7 +47,7 @@ fi
 #source "$DIR"/vars
 
 source "$DIR"/vars
-SERVICE_ACCOUNT=$USERNAME-pa
+SERVICE_ACCOUNT=$USERNAME-gitlab-pa
 KEY_FILE=${SERVICE_ACCOUNT}.json
 
 echo "Running  $(basename "$0") with  PROJECT_ID=$PROJECT_ID  SERVICE_ACCOUNT=$SERVICE_ACCOUNT USERNAME=$USERNAME GITLAB_AGENT=$GITLAB_AGENT WORKDIR=$WORKDIR CLUSTER=$CLUSTER REGION=$REGION ZONE=$ZONE"
@@ -76,6 +76,7 @@ bash "${DIR}"/create_cluster.sh -p "$PROJECT_ID" -c "$CLUSTER"
 gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID
 
 #### Next Steps
+echo "Created $SERVICE_ACCOUNT service account to be used with GitLab deployment."
 echo -e " Next Steps:
 - 1. Download $KEY_FILE and use it for DRLS-GCP CI/CD Settings.
 - 2. Install Gitlab Agent on the $CLUSTER cluster. Connect to the cluster:
