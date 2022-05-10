@@ -35,6 +35,20 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SER
 #EK: needed to list existing/create a new namespace when deploying to the GKE cluster
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/container.developer"
 
+#EK: For traffic Director
+# https://cloud.google.com/traffic-director/docs/prepare-for-envoy-setup
+#gcloud services enable \
+#  osconfig.googleapis.com \
+#  trafficdirector.googleapis.com \
+#  compute.googleapis.com \
+#  networkservices.googleapis.com
+
+# https://cloud.google.com/traffic-director/docs/set-up-gke-pods-auto
+#wget https://storage.googleapis.com/traffic-director/td-sidecar-injector-xdsv3.tgz
+#tar -xzvf td-sidecar-injector-xdsv3.tgz
+#cd td-sidecar-injector-xdsv3
+
+
 # This is too much in privs. Try to not use.
 # Full control of all Compute Engine resources.
 # Replace with compute.instanceAdmin?

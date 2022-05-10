@@ -49,8 +49,9 @@ fi
 source "$DIR"/vars
 SERVICE_ACCOUNT=$USERNAME-gitlab-pa
 KEY_FILE=${SERVICE_ACCOUNT}.json
+APPLICATION='prior-auth'
 
-echo "Running  $(basename "$0") with  PROJECT_ID=$PROJECT_ID  SERVICE_ACCOUNT=$SERVICE_ACCOUNT USERNAME=$USERNAME GITLAB_AGENT=$GITLAB_AGENT WORKDIR=$WORKDIR CLUSTER=$CLUSTER REGION=$REGION ZONE=$ZONE"
+echo "Running  $(basename "$0") with  PROJECT_ID=$PROJECT_ID ARGOLIS=$ARGOLIS SERVICE_ACCOUNT=$SERVICE_ACCOUNT USERNAME=$USERNAME GITLAB_AGENT=$GITLAB_AGENT WORKDIR=$WORKDIR CLUSTER=$CLUSTER REGION=$REGION ZONE=$ZONE"
 
 
 gcloud config set project $PROJECT_ID
@@ -60,12 +61,24 @@ bash "${DIR}"/services_enable.sh -p "$PROJECT_ID"
 
 if [[ $ARGOLIS == 'true' ]]; then
   gcloud services enable orgpolicy.googleapis.com
-  gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
-  gcloud org-policies reset constraints/iam.disableServiceAccountKeyCreation --project $PROJECT_ID
+  sleep 10
 fi
 
+gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
+gcloud org-policies reset constraints/iam.disableServiceAccountKeyCreation --project $PROJECT_ID
+gcloud org-policies reset  constraints/compute.requireShieldedVm --project $PROJECT_ID
+gcloud org-policies reset  constraints/compute.requireOsLogin --project $PROJECT_ID
+
 # 3. Service account creation
-gcloud iam service-accounts create $SERVICE_ACCOUNT
+if gcloud iam service-accounts list --project $PROJECT_ID | grep -q $SERVICE_ACCOUNT; then
+  echo "Service account $SERVICE_ACCOUNT has been found."
+else
+  echo "Creating service account... $SERVICE_ACCOUNT"
+  gcloud iam service-accounts create $SERVICE_ACCOUNT \
+      --description="Runs $APPLICATION CI/CD jobs" \
+      --display-name="$APPLICATION-service-account"
+fi
+
 gcloud iam service-accounts keys create $KEY_FILE \
     --iam-account=$SERVICE_ACCOUNT@"${PROJECT_ID}".iam.gserviceaccount.com
 
