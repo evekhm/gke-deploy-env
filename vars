@@ -4,6 +4,6 @@ ZONE=${ZONE:-'us-central1-c'}
 REGION=${REGION:-'us-central1'}
 NETWORK=${NETWORK:-'drls'}
 CLUSTER=${CLUSTER:-'prior-auth'}
-MACHINE_TYPE=${MACHINE_TYPE:-'e2-standard-6'}
+MACHINE_TYPE=${MACHINE_TYPE:-'e2-standard-8'}
 CLUSTER_VERSION=latest #'1.21.10-gke.2000'
 
