@@ -102,7 +102,7 @@ docker login -u $USERNAME -p $TOKEN registry.gitlab.com
 Install GitLab Agent in the cluster created above. See Instructions [here](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html#create-the-agents-configuration-file)
 - Inside this [repository folder](https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env/-/tree/main/.gitlab/agents), create the Agent's configuration file:
   ```shell
-  .gitlab/agents/<agent-name>/config.yaml
+  .gitlab/agents/<agent-name>/config.sample.yaml
   ```
 - Go to [Kubernetes page of this project](https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env/-/clusters) and select Actions->Connect with Agent.
   - Select the `agent-name` you used -> Register
