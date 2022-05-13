@@ -71,7 +71,7 @@ docker login -u $USERNAME -p $TOKEN registry.gitlab.com
 
 - Using Cloud Shell (or gcloud) to clone this repository using your Gitlab Token:
     ```shell
-      git clone https://oauth2:$TOKEN@gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env.git gke-deploy-env
+      ç 
     ```
 
 - Execute Provisioning Step (to be integrated with DTP).  

@@ -31,34 +31,21 @@ setup_network(){
 }
 
 create_cluster_autopilot(){
-  echo "Creating GKE Autopilot..."
-    gcloud container clusters create-auto "$CLUSTER" \
-        --region "$REGION" \
-        --network "$NETWORK" \
-        --project="$PROJECT_ID"
+  echo "Creating GKE Autopilot...[$CLUSTER]"
+  gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
+
+  gcloud container clusters create-auto "$CLUSTER" \
+      --region "$REGION" \
+      --network "$NETWORK" \
+      --project="$PROJECT_ID"
 }
 
 create_cluster_gke() {
-#  gcloud beta container --project "$PROJECT_ID" \
-#        clusters create "$CLUSTER" --zone "$ZONE" --no-enable-basic-auth \
-#        --cluster-version "$CLUSTER_VERSION" --release-channel "regular" \
-#        --machine-type "$MACHINE_TYPE" --image-type "COS_CONTAINERD" --disk-type "pd-standard" \
-#        --disk-size "100" --metadata disable-legacy-endpoints=true \
-#        --scopes "https://www.googleapis.com/auth/cloud-platform" \
-#        --max-pods-per-node "110" --num-nodes "4" \
-#        --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM \
-#        --enable-ip-alias \
-#        --network "projects/$PROJECT_ID/global/networks/$NETWORK" \
-#        --subnetwork "projects/$PROJECT_ID/regions/$REGION/subnetworks/$NETWORK" \
-#        --no-enable-intra-node-visibility --default-max-pods-per-node "110" --enable-autoscaling \
-#        --min-nodes "0" --max-nodes "6" --no-enable-master-authorized-networks \
-#        --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver,Istio \
-#        --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 \
-#        --enable-vertical-pod-autoscaling \
-#        --workload-pool "$PROJECT_ID.svc.id.goog" \
-#        --node-locations "$ZONE"
+  echo "Creating GKE Cluster [$CLUSTER]..."
 
-  echo "Creating GKE Cluster..."
+  gcloud org-policies reset  constraints/compute.requireShieldedVm --project $PROJECT_ID
+  gcloud org-policies reset  constraints/compute.requireOsLogin --project $PROJECT_ID
+
   gcloud beta container --project "$PROJECT_ID" clusters create "$CLUSTER" --zone "$ZONE"\
    --no-enable-basic-auth --cluster-version "$CLUSTER_VERSION" --release-channel "regular" \
    --machine-type "$MACHINE_TYPE" --image-type "COS_CONTAINERD" --disk-type "pd-standard" \

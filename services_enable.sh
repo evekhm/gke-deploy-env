@@ -7,15 +7,23 @@
 ######
 
 # ARGPARSE
-while getopts p: flag
+while getopts p:A flag
 do
     case "${flag}" in
         p) PROJECT_ID=${OPTARG};;
+        A) ARGOLIS=true;;
         *) echo "Wrong arguments provided" && exit
     esac
 done
 
+echo "Running  $(basename "$0") with  PROJECT_ID=$PROJECT_ID ARGOLIS=$ARGOLIS"
 echo "Enabling APIs for $PROJECT_ID ..."
+
+if [[ -n "$ARGOLIS" ]]; then
+  gcloud services enable orgpolicy.googleapis.com
+  sleep 10
+fi
+
 declare -a ServiceArray=(\
         "apigateway.googleapis.com" \
         "storage.googleapis.com" \
@@ -35,9 +43,6 @@ for s in "${ServiceArray[@]}"; do
     gcloud services enable --project "${PROJECT_ID}" "$s"
 done
 
-### For Argolis
-#gcloud services enable orgpolicy.googleapis.com
-#gcloud org-policies reset constraints/compute.vmExternalIpAccess --project "${PROJECT_ID}"
 
 ##################################
 # Now let's echo out our services for this account.
