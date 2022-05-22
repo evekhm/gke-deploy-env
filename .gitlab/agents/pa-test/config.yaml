@@ -7,3 +7,4 @@
 ci_access:
   groups:
     - id: "gcp-solutions/hcls"
+    - id: "gcp-solutions/hcls/claims-modernization/gitlab-test-examples"
