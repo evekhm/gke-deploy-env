@@ -4,14 +4,13 @@
 set -e # Exit if error is detected during pipeline execution
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR"/vars
-
-# ARGPARSE
-while getopts p:c: flag
+while getopts p:c:A flag
 do
     case "${flag}" in
         p) PROJECT_ID=${OPTARG};;
         c) CLUSTER=${OPTARG};;
-        *) echo "Wrong arguments provided" && exit
+        A) ARGOLIS='true';;
+        *)
     esac
 done
 
@@ -32,8 +31,10 @@ setup_network(){
 
 create_cluster_autopilot(){
   echo "Creating GKE Autopilot...[$CLUSTER]"
-  gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
 
+  if [[ $ARGOLIS == 'true' ]]; then
+    gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
+  fi
   gcloud container clusters create-auto "$CLUSTER" \
       --region "$REGION" \
       --network "$NETWORK" \
@@ -43,8 +44,10 @@ create_cluster_autopilot(){
 create_cluster_gke() {
   echo "Creating GKE Cluster [$CLUSTER]..."
 
-  gcloud org-policies reset  constraints/compute.requireShieldedVm --project $PROJECT_ID
-  gcloud org-policies reset  constraints/compute.requireOsLogin --project $PROJECT_ID
+  if [[ $ARGOLIS == 'true' ]]; then
+    gcloud org-policies reset  constraints/compute.requireShieldedVm --project $PROJECT_ID
+    gcloud org-policies reset  constraints/compute.requireOsLogin --project $PROJECT_ID
+  fi
 
   gcloud beta container --project "$PROJECT_ID" clusters create "$CLUSTER" --zone "$ZONE"\
    --no-enable-basic-auth --cluster-version "$CLUSTER_VERSION" --release-channel "regular" \

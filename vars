@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-ZONE=${ZONE:-'us-central1-c'}
-REGION=${REGION:-'us-central1'}
-NETWORK=${NETWORK:-'drls'}
-CLUSTER=${CLUSTER:-'prior-auth'}
-MACHINE_TYPE=${MACHINE_TYPE:-'e2-standard-8'}
-SERVICE_ACCOUNT=${SERVICE_ACCOUNT:-${CLUSTER}'-gitlab-sa'}
-CLUSTER_VERSION='1.21.10-gke.2000'
+export ZONE=${ZONE:-'us-central1-c'}
+export REGION=${REGION:-'us-central1'}
+export NETWORK=${NETWORK:-'drls'}
+export CLUSTER=${CLUSTER:-'prior-auth'}
+export MACHINE_TYPE=${MACHINE_TYPE:-'e2-standard-8'}
+export SERVICE_ACCOUNT=${SERVICE_ACCOUNT:-${CLUSTER}'-gitlab-sa'}
+export CLUSTER_VERSION='1.21.10-gke.2000'
+export ARGOLIS=${ARGOLIS:-'false'}
 

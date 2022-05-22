@@ -3,11 +3,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR"/vars
 echo "./provision_cicd.sh -p <PROJECT_ID> [-c <CLUSTER>]  [-s <SERVICE_ACCOUNT>] [-A <for Argolis>]   - for Gitlab CI/CD Integration"
 echo "./provision_demo.sh -p <PROJECT_ID> [-c <CLUSTER>] [-A <for Argolis>]                           - for Manual DEMO deployment"
-echo ""ß
+echo ""
 echo "Defaults:"
 echo "   PROJECT_ID=$PROJECT_ID"
 echo "   CLUSTER=$CLUSTER"
 echo "   SERVICE_ACCOUNT=$SERVICE_ACCOUNT"
 echo "   ZONE=$ZONE"
 echo "   REGION=$REGION"
+echo "   ARGOLIS=$ARGOLIS"
 

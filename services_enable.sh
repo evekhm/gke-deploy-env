@@ -5,21 +5,30 @@
 # Example call:
 # bash ./services_enable.sh -p prior_auth_test
 ######
-
-# ARGPARSE
+set -e # Exit if error is detected during pipeline execution
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR"/vars
 while getopts p:A flag
 do
     case "${flag}" in
         p) PROJECT_ID=${OPTARG};;
-        A) ARGOLIS=true;;
-        *) echo "Wrong arguments provided" && exit
+        A) ARGOLIS='true';;
+        *)
     esac
 done
 
+if [ -z ${PROJECT_ID+x} ]; then
+  echo "Missing PROJECT_ID=$PROJECT_ID (required)"
+  exit 1
+fi
+
 echo "Running  $(basename "$0") with  PROJECT_ID=$PROJECT_ID ARGOLIS=$ARGOLIS"
+
+gcloud config set project $PROJECT_ID
+
 echo "Enabling APIs for $PROJECT_ID ..."
 
-if [[ -n "$ARGOLIS" ]]; then
+if [[ $ARGOLIS == 'true' ]]; then
   gcloud services enable orgpolicy.googleapis.com
   sleep 10
 fi
