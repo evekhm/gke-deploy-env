@@ -12,7 +12,6 @@
 ## Overview                 
 
 These are manual steps for GCP Provisioning which are Pre-Requisite for GitLab CI/CD flow.
-To be integrated with DPT ...   
 
 These instructions guide you through:
 - Creating GCP Project
@@ -34,65 +33,74 @@ In case of planning on contributing back, the scope needs also to include `write
 ### GCP Project
 - Create GCP Project with a billing account or use an existing one. 
   * Take note of your Google Cloud Project ID. Moving forward, this will be referred to as `PROJECT_ID`.
-
-### Service Account
-- [Create a service account & download key JSON](https://cloud.google.com/docs/authentication/getting-started#creating_a_service_account). 
-Moving forward,  name of the created service account will be referred to as `SERVICE_ACCOUNT`.
-
-
+  
 ### Setting Up Environment
-- 
-
 
 - Set Environment Variables and activate Project config:
   ```shell
   export PROJECT_ID=<your_project_id>
   export TOKEN=<your_gitlab_token>
   export USERNAME=<your_gitlab_username>
-  export SERVICE_ACCOUNT=<you_service_account_name>
   ```
-  
+- If using Argolis environment:
   ```shell
-  gcloud config set project $PROJECT_ID
+  export ARGOLIS=true
   ```
+- Optional variables that could be specified (to overwrite defaults):
+  ```shell
+    export CLUSTER=<cluster_name>
+    export ZONE=<your_zone>
+    export REGION=<your_region>
+  ```  
 
-To get access to GitLab sources following command needs to be run:
-```shell
-docker login -u $USERNAME -p $TOKEN registry.gitlab.com
-```
+- Activate Project config
+    ```shell
+    gcloud config set project $PROJECT_ID
+    ```
+  
+### Git Lab Login
 
-- For the `Argolis` environment ONLY, following known Org Constraints need to be disabled using Cloud Shell before deploying the cluster:
-
-  ```sh
-     gcloud services enable orgpolicy.googleapis.com
-     gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
-     gcloud org-policies reset constraints/iam.disableServiceAccountKeyCreation --project $PROJECT_ID
+- To get access to GitLab sources following command needs to be run:
+  ```shell
+  docker login -u $USERNAME -p $TOKEN registry.gitlab.com
   ```
 
 - Using Cloud Shell (or gcloud) to clone this repository using your Gitlab Token:
     ```shell
-      ç 
+       git clone https://oauth2:$TOKEN@gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env.git gke-deploy-env
+    ```
+### Provisioning
+
+- Dry-run to see parameters and options
+     ```shell
+    ./provision
     ```
 
-- Execute Provisioning Step (to be integrated with DTP).  
-  * Optionally: Set ZONE REGION CLUSTER_NAME the defaults
-    > By assigning any of the below env variables, you could overwrite the defined defaults (see below):
-    ```shell
-    export CLUSTER=<cluster-name>
-    export REGION=<your-region>
-    export ZONE=<your-zone>
-    ```
+    Sample output:
+  ```shell
+  ./provision_cicd.sh -p <PROJECT_ID> [-c <CLUSTER>]  [-s <SERVICE_ACCOUNT>] [-A <for Argolis>]   - for Gitlab CI/CD Integration
+  ./provision_demo.sh -p <PROJECT_ID> [-c <CLUSTER>] [-A <for Argolis>]                           - for Manual DEMO deployment
+  
+  Defaults:
+  PROJECT_ID=pa-cicd
+  CLUSTER=pa-development
+  SERVICE_ACCOUNT=pa-development-gitlab-sa
+  ZONE=us-central1-c
+  REGION=us-central1
+  ARGOLIS=false
+  ```
+  
 
-    defaults (See `vars` file):
-    ```shell
-    ZONE=${ZONE:-'us-central1-c'}
-    REGION=${REGION:-'us-central1'}
-    CLUSTER=${CLUSTER:-'prior-auth'}
-    ```
   * Run provisioning:
-    ```shell
-    gke-deploy-env/provision.sh -p $PROJECT_ID -a $SERVICE_ACCOUNT
-    ```
+    * For CICD:
+      ```shell
+      gke-deploy-env/provision_cicd.sh
+      ```
+    * For manual deployment:
+      ```shell
+      gke-deploy-env/provision_demo.sh
+      ```    
+
   * This will:
       - Enable required APIs
       - Add required Role Bindings to the Service Account
