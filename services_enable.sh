@@ -57,3 +57,5 @@ done
 # Now let's echo out our services for this account.
 ##################################
 gcloud services list --enabled
+
+echo "Done  $(basename "$0")"
