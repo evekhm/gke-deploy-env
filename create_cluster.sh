@@ -4,8 +4,6 @@
 set -e # Exit if error is detected during pipeline execution
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR"/vars
-echo CLUSTER=$CLUSTER
-exit 1
 
 while getopts p:c: flag
 do
