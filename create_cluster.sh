@@ -4,12 +4,14 @@
 set -e # Exit if error is detected during pipeline execution
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR"/vars
-while getopts p:c:A flag
+echo CLUSTER=$CLUSTER
+exit 1
+
+while getopts p:c: flag
 do
     case "${flag}" in
         p) PROJECT_ID=${OPTARG};;
         c) CLUSTER=${OPTARG};;
-        A) ARGOLIS='true';;
         *)
     esac
 done
@@ -33,6 +35,7 @@ create_cluster_autopilot(){
   echo "Creating GKE Autopilot...[$CLUSTER]"
 
   if [[ $ARGOLIS == 'true' ]]; then
+    echo "Disabling constraints for Argolis ..."
     gcloud org-policies reset constraints/compute.vmExternalIpAccess --project $PROJECT_ID
   fi
   gcloud container clusters create-auto "$CLUSTER" \
@@ -88,6 +91,4 @@ setup_cluster() {
 setup_network
 
 setup_cluster
-
-
 

@@ -8,11 +8,10 @@
 set -e # Exit if error is detected during pipeline execution
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR"/vars
-while getopts p:A flag
+while getopts p: flag
 do
     case "${flag}" in
         p) PROJECT_ID=${OPTARG};;
-        A) ARGOLIS='true';;
         *)
     esac
 done
@@ -30,7 +29,8 @@ echo "Enabling APIs for $PROJECT_ID ..."
 
 if [[ $ARGOLIS == 'true' ]]; then
   gcloud services enable orgpolicy.googleapis.com
-  sleep 10
+  sleep 15
+  gcloud org-policies reset constraints/compute.vmExternalIpAccess --project "${PROJECT_ID}"
 fi
 
 declare -a ServiceArray=(\
