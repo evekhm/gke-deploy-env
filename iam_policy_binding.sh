@@ -47,6 +47,9 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SER
 #EK: needed to list existing/create a new namespace when deploying to the GKE cluster
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/container.developer"
 
+#EK for end points to be created by Gitlab Agent
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/servicemanagement.admin"
+
 #EK: For traffic Director
 # https://cloud.google.com/traffic-director/docs/prepare-for-envoy-setup
 #gcloud services enable \
