@@ -48,7 +48,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SER
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/container.developer"
 
 #EK for end points to be created by Gitlab Agent
-gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/servicemanagement.admin"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/editor"
 
 #EK: For traffic Director
 # https://cloud.google.com/traffic-director/docs/prepare-for-envoy-setup
