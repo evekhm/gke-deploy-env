@@ -2,12 +2,11 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source "$DIR"/vars
-while getopts s:p:c:A flag
+while getopts s:p:c: flag
 do
     case "${flag}" in
         c) CLUSTER=${OPTARG};;
         p) PROJECT_ID=${OPTARG};;
-        A) ARGOLIS='true';;
         s) SERVICE_ACCOUNT=${OPTARG};;
         *) echo "Wrong arguments provided" && exit
     esac
