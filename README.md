@@ -78,12 +78,12 @@ In case of planning on contributing back, the scope needs also to include `write
 
     Sample output:
   ```shell
-  ./provision_cicd.sh -p <PROJECT_ID> [-c <CLUSTER>]  [-s <SERVICE_ACCOUNT>] [-A <for Argolis>]   - for Gitlab CI/CD Integration
-  ./provision_demo.sh -p <PROJECT_ID> [-c <CLUSTER>] [-A <for Argolis>]                           - for Manual DEMO deployment
+  ./provision_cicd.sh -p <PROJECT_ID> [-c <CLUSTER>]  [-s <SERVICE_ACCOUNT>]   - for Gitlab CI/CD Integration
+  ./provision_demo.sh -p <PROJECT_ID> [-c <CLUSTER>]                            - for Manual DEMO deployment
   
   Defaults:
-  PROJECT_ID=pa-cicd
-  CLUSTER=pa-development
+  PROJECT_ID=you_project_id
+  CLUSTER=pa-demo
   SERVICE_ACCOUNT=pa-development-gitlab-sa
   ZONE=us-central1-c
   REGION=us-central1
