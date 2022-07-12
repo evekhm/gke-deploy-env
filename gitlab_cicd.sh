@@ -50,8 +50,16 @@ ls "$KEY_FILE"
 
 echo -e "Next Steps:
 - 1. Download $KEY_FILE and use it for DRLS-GCP CI/CD Settings as a SERVICE_ACCOUNT_KEY for your deployment.
-- 2. Install Gitlab Agent on the $CLUSTER cluster.
-     You are already connected to the $CLUSTER cluster. To re-connect run:
+- 2. Install Gitlab Agent on the $CLUSTER cluster:
+     - Follow the step https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env/-/blob/main/README.md#gitlab-agent
+     - Copy and paste Gitlab commands below.
+- 3. Follow these instrcutions https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/DRLS-GCP/-/blob/main/GitLabREADME.md
+     - Make sure to update variable settings at DRLS project https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/DRLS-GCP/-/blob/main/.gitlab-ci.yml:
+        PROJECT_ID_<env>: <you_project>
+        KUBE_CONTEXT_<env>: ${CI_PROJECT_NAMESPACE}/gke-deploy-env:<agent_name>
+        SERVICE_ACCOUNT_FILE_<env>: <your_service_acount_file>
+
+You are already connected to the $CLUSTER cluster. To re-connect run:
 
 gcloud container clusters get-credentials $CLUSTER --region=$REGION --project $PROJECT_ID"
 

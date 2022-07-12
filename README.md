@@ -106,8 +106,8 @@ In case of planning on contributing back, the scope needs also to include `write
       - Add required Role Bindings to the Service Account
       - Create Cluster (using Cluster name, network, zone and region as specified in [vars](vars) file).
 
-### GitLab Agent <a name="gitlab-agent"></a>
-Install GitLab Agent in the cluster created above. See Instructions [here](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html#create-the-agents-configuration-file)
+### Install GitLab Agent <a name="gitlab-agent"></a>
+Install GitLab Agent in the cluster created above. See explained steps on Gitlab [here](https://docs.gitlab.com/ee/user/clusters/agent/install/index.html#create-the-agents-configuration-file)
 - Inside this [repository folder](https://gitlab.com/gcp-solutions/hcls/claims-modernization/pa-ref-impl/gke-deploy-env/-/tree/main/.gitlab/agents), create the Agent's configuration file:
   ```shell
   .gitlab/agents/<agent-name>/config.sample.yaml
