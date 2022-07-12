@@ -69,7 +69,8 @@ create_cluster_gke() {
 
 setup_cluster() {
   echo "Setting up [$CLUSTER] cluster..."
-  if gcloud container clusters list --region="$REGION" --format "value(NAME)" --project "$PROJECT_ID" | grep "$CLUSTER" > /dev/null;
+  if gcloud container clusters list --region="$REGION" --format "value(NAME)" --project "$PROJECT_ID" --filter="name=${CLUSTER}" > /dev/null;
+
   then
     echo "Cluster [$CLUSTER] already up and running in [$REGION]"
   else
