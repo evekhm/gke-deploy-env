@@ -8,3 +8,11 @@ export SERVICE_ACCOUNT=${SERVICE_ACCOUNT:-${CLUSTER}'-gitlab-sa'}
 export CLUSTER_VERSION='1.21.10-gke.2000'
 export ARGOLIS=${ARGOLIS:-'false'}
 
+
+####
+export GCP_SERVICE_ACCOUNT="artifact-registry-user"
+export CLOUD_DEPLOY_EXECUTION_SERVICE_ACCOUNT="cloud-deploy-runner"
+export REPOSITORY="prior-auth"
+export REPOSITORY_DESC="Claims Modernization Released Containers"
+
+gcloud container clusters get-credentials pa-demo --region us-central1 --project prior-auth-demo
