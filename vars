@@ -12,7 +12,5 @@ export ARGOLIS=${ARGOLIS:-'false'}
 ####
 export GCP_SERVICE_ACCOUNT="artifact-registry-user"
 export CLOUD_DEPLOY_EXECUTION_SERVICE_ACCOUNT="cloud-deploy-runner"
-export REPOSITORY="prior-auth"
+export REPOSITORY="docker-repo"
 export REPOSITORY_DESC="Claims Modernization Released Containers"
-
-gcloud container clusters get-credentials pa-demo --region us-central1 --project prior-auth-demo
